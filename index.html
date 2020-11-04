@@ -7,24 +7,40 @@
     <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-    <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Weather Dashboard</a>
-    </nav>
+    <header class="page-header text-white bg-dark">
+      <h1 class="text-center">Weather Dashboard</h1>
+    </header>
+
+    <h4 class="prompt">Search For a City:</h4>
+
+    <div class="input-group mb-3">
+      <input type="text" class="form-control1" placeholder="City Name" aria-label="Recipient's username" aria-describedby="button-addon2">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" id="addon">Search</button>
+      </div>
+    </div>
+    
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
+  
 
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=Chicago" + "&appid=c637f35cbbd54d5df03028c0eebbdc31";
+    
+
+    var searchWeather = function(city) {
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=c637f35cbbd54d5df03028c0eebbdc31";
     
     $.ajax({
       url: queryURL,
       method: "GET"
     }).then(function(response) {
-      
+      console.log(response.main.temp)
+      console.log(response.main.humidity)
     });
+    };
 
-
-
+    
+    searchWeather()
 
 
 
