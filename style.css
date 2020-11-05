@@ -1,16 +1,50 @@
 #addon {
     background-color: blue;
+    border: 2px solid black;
     color: white;
     display: flex;
     justify-content: center;
     width: 70px;
 }
 
+.card1 {
+    border: 2px solid black;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.content-wrapper {
+    margin-top: 10px;
+    width: 600px;
+}
+
+.forecast-header {
+    margin-top: 15px;
+}
+
 .form-control1 {
+    border: 2px solid black;
     width: 200px;
-    margin-left: 10px;
 }
 
 .prompt {
-    margin-left: 10px;
+    padding-left: 0px;
 }
+
+.col {
+    margin-left: 15px;
+    margin-top: 5px;
+    border: 2px solid black;
+    
+}
+
+.search-wrapper {
+    width: 270px;
+    display: flex;
+    flex-direction: column;
+}
+
