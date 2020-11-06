@@ -1,5 +1,7 @@
+/*This styles the search button*/
+
 #addon {
-    background-color: blue;
+    background-color: #1E90FF;
     border: 2px solid black;
     color: white;
     display: flex;
@@ -7,9 +9,13 @@
     width: 70px;
 }
 
+/*This styles the large box*/
+
 .card1 {
     border: 2px solid black;
 }
+
+/*This container splits the search and history from the display*/
 
 .container {
     display: flex;
@@ -17,30 +23,44 @@
     width: 100%;
 }
 
+/*This sets the size of the container holding the forecast and large box*/
+
 .content-wrapper {
     margin-top: 10px;
     width: 600px;
 }
 
+/*This styles each of the forecast boxes*/
+
+.col {
+    background-color: #1E90FF;
+    border: 2px solid black;
+    color: white;
+    height: 180px;
+    margin-left: 15px;
+    margin-top: 5px;
+}
+
+/*Puts space between the large box and forecasts*/
+
 .forecast-header {
     margin-top: 15px;
 }
+
+/*This styles the input field*/
 
 .form-control1 {
     border: 2px solid black;
     width: 200px;
 }
 
+/*This one makes the search for city text flush with the search*/
+
 .prompt {
     padding-left: 0px;
 }
 
-.col {
-    margin-left: 15px;
-    margin-top: 5px;
-    border: 2px solid black;
-    
-}
+/*This puts the search bar and history in a column*/
 
 .search-wrapper {
     width: 270px;
