@@ -47,10 +47,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script type="text/javascript">
-    
-    //This variable creates the local storage for the search history and runs the function
 
-    var recentSearches = localStorage.getItem("recentSearches").split(",");
+    // this sets and initializes the local storage for the recentSearches
+    
+    var recentSearches = []
+    if (localStorage.getItem("recentSearches") !== null) {
+      recentSearches = localStorage.getItem("recentSearches").split(",")
+    }
+    
     displayRecentSearches()
 
     //This function allows both of the below functions to be called upon when the user clicks the search button
@@ -69,12 +73,6 @@
       
       var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=Imperial&appid=c637f35cbbd54d5df03028c0eebbdc31";
       
-      // this sets and initializes the local storage for the recentSearches
-
-      if (localStorage.getItem("recentSearches") === null) {
-        recentSearches = []
-      }
-  
       // This pushes the user city input into the recent searches array and runs the function
 
       recentSearches.push(city)
