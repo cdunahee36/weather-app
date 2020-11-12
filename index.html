@@ -48,15 +48,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script type="text/javascript">
     
+    //This variable creates the local storage for the search history and runs the function
+
+    var recentSearches = localStorage.getItem("recentSearches").split(",")
+    displayRecentSearches()
+
     //This function allows both of the below functions to be called upon when the user clicks the search button
 
-      $(document).ready(function() {
-        $("#addon").on("click", function(event) {
-          var userInput = $("#search-field").val()
-          searchWeather(userInput)
-          searchForecast(userInput)
-          })
-      })
+    $(document).ready(function() {
+      $("#addon").on("click", function(event) {
+        var userInput = $("#search-field").val()
+        searchWeather(userInput)
+        searchForecast(userInput)
+        })
+    })
 
     //This function displays the weather elements from the api into the large box
 
@@ -64,12 +69,25 @@
       
       var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=Imperial&appid=c637f35cbbd54d5df03028c0eebbdc31";
       
+      // this sets and initializes the local storage for the recentSearches
+
+      if (localStorage.getItem("recentSearches") === null) {
+        recentSearches = []
+      }
+  
+      // This pushes the user city input into the recent searches array and runs the function
+
+      recentSearches.push(city)
+      localStorage.setItem("recentSearches", recentSearches)
+      displayRecentSearches()
+
+      console.log("Updated array " + recentSearches)
       $.ajax({
         url: queryURL,
         method: "GET"
       }).then(function(response) {
         var weatherContainer = document.getElementById("weather-container")
-        
+        console.log(response)
         //This while loop allows the parent to be cleared when a new city name is typed in
 
         while (weatherContainer.hasChildNodes()) {
@@ -82,16 +100,16 @@
         var hRow = $('<tr>');
         var wRow = $('<tr>');
         var uRow = $('<tr>');
-        var recentRow = $('<tr>');
+        
 
         //This variable formats and displays the date at the top of the main weather box
 
         var date = moment().format('L'); 
-        $('.card-header').text(response.name + " " + "(" + date + ")")
+        $('.card-header').text(response.name + " " + "(" + date + ")" + " " + response.weather[0].icon)
         
         //These variables house each element of the weather api and formats them to be understandable
 
-        var recentCity = $('<td>').text(response.name)
+        
         var temperature = $("<td>").text("Temperature:" + " " + response.main.temp + " " + "F");
         var humidity = $("<td>").text("Humidity:" + " " + response.main.humidity + "%");
         var windSpeed = $("<td>").text("Wind Speed:" + " " + response.wind.speed + " " + "MPH");
@@ -103,7 +121,7 @@
         hRow.append(humidity)
         wRow.append(windSpeed)
         uRow.append(uvIndex)
-        recentRow.append(recentCity)
+        
         
         //Here I append the rows to the parent
 
@@ -111,14 +129,29 @@
         $('.card-body').append(hRow)
         $('.card-body').append(wRow)
         $('.card-body').append(uRow)
-        $('#city-history').append(recentRow)
-
-        
-  
       });
     
     };
     
+    //This function appends and saves the recent searches to the page
+
+    function displayRecentSearches() {
+      var searchesContainer = document.getElementById("city-history")
+
+      while (searchesContainer.hasChildNodes()) {
+        searchesContainer.removeChild(searchesContainer.lastChild);
+      }
+      
+      //This for loop goes through each string typed in and appends each individual string to the page
+
+      for (i = 0; i < recentSearches.length; i++) {
+        var recentRow = $('<tr>');
+        var recentCity = $('<td>').text(recentSearches[i])
+        recentRow.append(recentCity)
+        $('#city-history').append(recentRow)
+      }
+    }
+
     //This function is set up to display the five day forecast
 
     function searchForecast(city) {
@@ -194,6 +227,9 @@
         $('#5').append( moment().add(5, 'days').calendar())    
         $('#5').append(day5Temp)
         $('#5').append(day5Hum)
+
+
+        console.log(response)
        });
     
     };
